@@ -1,9 +1,12 @@
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
+from flask_caching import Cache
 from utils import fetch_image
 import math
 
 app = Flask(__name__)
+app.config['CACHE_TYPE'] = 'SimpleCache'
+cache = Cache(app)
 CORS(app)
 
 @app.route("/objects")
@@ -21,9 +24,9 @@ def get_image_objects():
     zoom = (int(request.args.get("zoom")))
 
     boundaries = (math.ceil(worldWidth / tileWidth / 2) - 1, math.ceil(worldHeight / tileHeight / 2) - 1)
-    print("Boundaries: {bndrs}\npanoId: {pano}\nOrigin Heading: {oh}\Origin Pitch: {op}\nCurrent Heading: {ch}\nCurrent Pitch: {cp}\Zoom : {z}\n"
-          .format(bndrs = boundaries, pano = panoid, oh = originHeading, op = originPitch, ch = currentHeading, cp = currentPitch, z = zoom  ))
-    fetch_image((0, 0), boundaries, panoid, zoom, (currentHeading - originHeading + 360) % 360, currentPitch - originPitch)
+    # print("Boundaries: {bndrs}\npanoId: {pano}\nOrigin Heading: {oh}\Origin Pitch: {op}\nCurrent Heading: {ch}\nCurrent Pitch: {cp}\Zoom : {z}\n"
+    #       .format(bndrs = boundaries, pano = panoid, oh = originHeading, op = originPitch, ch = currentHeading, cp = currentPitch, z = zoom  ))
+    fetch_image((0, 0), boundaries, panoid, zoom, (currentHeading - originHeading + 360) % 360, currentPitch - originPitch, cache)
     return [], 200
 
 
