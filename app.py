@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
 from utils import fetch_image
+import math
 
 app = Flask(__name__)
 CORS(app)
@@ -19,8 +20,8 @@ def get_image_objects():
     currentPitch = (float(request.args.get("currentPitch")))
     zoom = (int(request.args.get("zoom")))
 
-    boundaries = (worldWidth / tileWidth, worldHeight / tileHeight)
-    print("Boundaries: {bndrs}\npanoId: {pano}\nOrigin Heading: {oh}\Origin Pitch: {op}\nCurrent Heading: {ch}\nCurrent Pitch: {tw}\Zoom : {z}\n"
+    boundaries = (math.ceil(worldWidth / tileWidth / 2) - 1, math.ceil(worldHeight / tileHeight / 2) - 1)
+    print("Boundaries: {bndrs}\npanoId: {pano}\nOrigin Heading: {oh}\Origin Pitch: {op}\nCurrent Heading: {ch}\nCurrent Pitch: {cp}\Zoom : {z}\n"
           .format(bndrs = boundaries, pano = panoid, oh = originHeading, op = originPitch, ch = currentHeading, cp = currentPitch, z = zoom  ))
     fetch_image((0, 0), boundaries, panoid, zoom)
     return [], 200
