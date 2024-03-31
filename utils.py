@@ -32,8 +32,9 @@ def fetch_image(topleft, bottomright, panoId, zoom, heading, pitch, cache):
         print("threads started")
         for t in threads:
             t.join()
-        img = img[:-256, :, :]  # trim the black rectangle at the bottom
+        if width / height != 2:
+            img = img[:width / 2 - height, :, :] # trim the black rectangle at the bottom
         cache.set(panoId, img)
     equ = Equirectangular(img)
-    # matplotlib.image.imsave('img.jpg', equ.GetPerspective(120, heading, pitch, 1080, 1920))
+    matplotlib.image.imsave('img.jpg', equ.GetPerspective(120, heading, pitch, 1080, 1920))
     return img
