@@ -5,6 +5,7 @@ import requests
 import matplotlib.pyplot as plt
 import matplotlib.image
 import threading
+from Equirectangular import Equirectangular
 
 URL = "https://streetviewpixels-pa.googleapis.com/v1/tile?cb_client=apiv3&panoid={}&output=tile&x={}&y={}&zoom={}&nbt=1&fover=2"
 
@@ -17,7 +18,7 @@ def worker(img, x, y, panoid, zoom):
     else:
         print(url)
 
-def fetch_image(topleft, bottomright, panoId, zoom):
+def fetch_image(topleft, bottomright, panoId, zoom, heading, pitch):
     height = bottomright[1] - topleft[1] + 1
     width = bottomright[0] - topleft[0] + 1
     img = np.zeros((height * 512, width * 512, 3), dtype=np.uint8)
@@ -27,8 +28,11 @@ def fetch_image(topleft, bottomright, panoId, zoom):
             thread = threading.Thread(target=worker, args=(img, j, i, panoId, zoom))
             thread.start()
             threads.append(thread)
-
+    print("threads started")
     for t in threads:
         t.join()
-    matplotlib.image.imsave('img.jpg', img)
+    img = img[:-256, :, :]  # trim the black rectangle at the bottom
+    print(img.shape)
+    equ = Equirectangular(img)
+    matplotlib.image.imsave('img.jpg', equ.GetPerspective(120, heading, pitch, 1080, 1920))
     return img

@@ -23,7 +23,7 @@ def get_image_objects():
     boundaries = (math.ceil(worldWidth / tileWidth / 2) - 1, math.ceil(worldHeight / tileHeight / 2) - 1)
     print("Boundaries: {bndrs}\npanoId: {pano}\nOrigin Heading: {oh}\Origin Pitch: {op}\nCurrent Heading: {ch}\nCurrent Pitch: {cp}\Zoom : {z}\n"
           .format(bndrs = boundaries, pano = panoid, oh = originHeading, op = originPitch, ch = currentHeading, cp = currentPitch, z = zoom  ))
-    fetch_image((0, 0), boundaries, panoid, zoom)
+    fetch_image((0, 0), boundaries, panoid, zoom, (currentHeading - originHeading + 360) % 360, currentPitch - originPitch)
     return [], 200
 
 
