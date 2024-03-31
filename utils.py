@@ -4,6 +4,7 @@ from io import BytesIO
 import requests
 import threading
 from Equirectangular import Equirectangular
+import matplotlib.image
 
 URL = "https://streetviewpixels-pa.googleapis.com/v1/tile?cb_client=apiv3&panoid={}&output=tile&x={}&y={}&zoom={}&nbt=1&fover=2"
 
@@ -34,5 +35,5 @@ def fetch_image(topleft, bottomright, panoId, zoom, heading, pitch, cache):
         img = img[:-256, :, :]  # trim the black rectangle at the bottom
         cache.set(panoId, img)
     equ = Equirectangular(img)
-    # smatplotlib.image.imsave('img.jpg', equ.GetPerspective(120, heading, pitch, 1080, 1920))
+    # matplotlib.image.imsave('img.jpg', equ.GetPerspective(120, heading, pitch, 1080, 1920))
     return img
