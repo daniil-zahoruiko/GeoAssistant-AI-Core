@@ -12,6 +12,7 @@ CORS(app)
 @app.route("/objects")
 @cross_origin()
 def get_image_objects():
+    # TODO: Add screen width and screen height for panorama conversion (for now set by hand in utils)
     tileWidth = (int(request.args.get("tileWidth")))
     tileHeight = (int(request.args.get("tileHeight")))
     worldWidth = (int(request.args.get("worldWidth")))
@@ -24,8 +25,6 @@ def get_image_objects():
     zoom = (int(request.args.get("zoom")))
 
     boundaries = (math.ceil(worldWidth / tileWidth / 2) - 1, math.ceil(worldHeight / tileHeight / 2) - 1)
-    # print("Boundaries: {bndrs}\npanoId: {pano}\nOrigin Heading: {oh}\Origin Pitch: {op}\nCurrent Heading: {ch}\nCurrent Pitch: {cp}\Zoom : {z}\n"
-    #       .format(bndrs = boundaries, pano = panoid, oh = originHeading, op = originPitch, ch = currentHeading, cp = currentPitch, z = zoom  ))
     fetch_image((0, 0), boundaries, panoid, zoom, currentHeading - originHeading, currentPitch + originPitch, cache)
     return [], 200
 

@@ -3,9 +3,6 @@ from PIL import Image
 from io import BytesIO
 import requests
 import threading
-import matplotlib.image
-import py360convert
-import imageio
 from scipy.ndimage import map_coordinates
 
 URL = "https://streetviewpixels-pa.googleapis.com/v1/tile?cb_client=apiv3&panoid={}&output=tile&x={}&y={}&zoom={}&nbt=1&fover=2"
