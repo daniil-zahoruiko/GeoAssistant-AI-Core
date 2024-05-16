@@ -8,6 +8,7 @@ import imageio
 from scipy.ndimage import map_coordinates
 
 URL = "https://streetviewpixels-pa.googleapis.com/v1/tile?cb_client=apiv3&panoid={}&output=tile&x={}&y={}&zoom={}&nbt=1&fover=2"
+IMG_SIZE = (1024, 512)
 
 def worker(img, x, y, panoid, zoom):
     url = URL.format(panoid, x, y, zoom)
@@ -18,7 +19,7 @@ def worker(img, x, y, panoid, zoom):
     else:
         print(url)
 
-def fetch_image(topleft, bottomright, panoId, zoom, heading, pitch, cache):
+def fetch_image(topleft, bottomright, panoId, zoom, heading, pitch, cache, output_size = IMG_SIZE):
     img = cache.get(panoId)
     if img is None:
         height = bottomright[1] - topleft[1] + 1
@@ -37,7 +38,7 @@ def fetch_image(topleft, bottomright, panoId, zoom, heading, pitch, cache):
             img = img[:int(width * 256), :, :] # trim the black rectangle at the bottom
         cache.set(panoId, img)
     # imageio.imsave('img.jpg', panorama_to_plane(img, 127, (2560, 1271), heading - 90, 90 - pitch))
-    perspective = panorama_to_plane(img, 127, (2560, 1271), heading - 90, 90 - pitch)
+    perspective = panorama_to_plane(img, 127, output_size, heading - 90, 90 - pitch)
     return perspective
 
 def map_to_sphere(x, y, z, yaw_radian, pitch_radian):
@@ -106,5 +107,6 @@ def save_image(img):
     numbers = [int(f[len(FILENAME) + 1:-4]) for f in filenames]
     number = 1
     if len(numbers) > 0:
-        number = max(numbers)
+        number = max(numbers) + 1
+
     imageio.imsave(os.path.join(path, FILENAME + '-' + str(number) + '.jpg'), img)
