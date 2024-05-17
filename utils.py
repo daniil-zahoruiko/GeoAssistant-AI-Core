@@ -28,7 +28,7 @@ def worker(img, x, y, panoid, zoom):
     else:
         print(url)
 
-def fetch_image(topleft, bottomright, panoId, zoom, heading, pitch, cache):
+def fetch_image(topleft, bottomright, panoId, zoom, heading, pitch, cache, output_size = IMG_SIZE):
     """ Fetches the panorama image or retrieves from cache and converts it to a plane
 
     Args:
