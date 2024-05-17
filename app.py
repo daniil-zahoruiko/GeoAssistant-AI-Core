@@ -12,6 +12,13 @@ CORS(app)
 @app.route("/objects")
 @cross_origin()
 def get_image_objects():
+    """ Fetches the panorama image
+
+    Responses:
+        200:
+            description: Image fetched successfully
+    """
+
     # TODO: Add screen width and screen height for panorama conversion (for now set by hand in utils)
     tileWidth = (int(request.args.get("tileWidth")))
     tileHeight = (int(request.args.get("tileHeight")))
@@ -31,6 +38,13 @@ def get_image_objects():
 @app.route("/imsave")
 @cross_origin()
 def imsave():
+    """ Saves the panorama image
+
+    Repsonses:
+        200:
+            description: Image fetched and saved successfully
+    """
+
     # TODO: Add screen width and screen height for panorama conversion (for now set by hand in utils)
     tileWidth = (int(request.args.get("tileWidth")))
     tileHeight = (int(request.args.get("tileHeight")))

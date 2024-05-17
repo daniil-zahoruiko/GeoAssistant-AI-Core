@@ -10,6 +10,15 @@ from scipy.ndimage import map_coordinates
 URL = "https://streetviewpixels-pa.googleapis.com/v1/tile?cb_client=apiv3&panoid={}&output=tile&x={}&y={}&zoom={}&nbt=1&fover=2"
 
 def worker(img, x, y, panoid, zoom):
+    """ Fetches a single tile from Google Street View and inserts it into the panorama image
+
+    Args:
+        img: The panorama image
+        x: The x-coordinate of the tile
+        y: The y-coordinate of the tile
+        panoid: The panorama ID
+        zoom: The zoom level
+    """
     url = URL.format(panoid, x, y, zoom)
     response = requests.get(url)
     if response.status_code == 200:
@@ -19,6 +28,20 @@ def worker(img, x, y, panoid, zoom):
         print(url)
 
 def fetch_image(topleft, bottomright, panoId, zoom, heading, pitch, cache):
+    """ Fetches the panorama image or retrieves from cache and converts it to a plane
+
+    Args:
+        topleft: The top left corner of the panorama
+        bottomright: The bottom right corner of the panorama
+        panoId: The panorama ID
+        zoom: The zoom level
+        heading: The heading of the camera
+        pitch: The pitch of the camera
+        cache: The flask Cache object
+
+    Returns:
+        Image: The plane image of the given Google Street View panorama
+    """
     img = cache.get(panoId)
     if img is None:
         height = bottomright[1] - topleft[1] + 1
@@ -41,7 +64,19 @@ def fetch_image(topleft, bottomright, panoId, zoom, heading, pitch, cache):
     return perspective
 
 def map_to_sphere(x, y, z, yaw_radian, pitch_radian):
+    """ Maps the plane coordinates to the sphere coordinates
 
+    Args:
+        x:
+        y: _description_
+        z: _description_
+        yaw_radian: _description_
+        pitch_radian: _description_
+
+    Returns:
+        _type_: _description_
+    """
+    #TODO: finish docstring
 
     theta = np.arccos(z / np.sqrt(x ** 2 + y ** 2 + z ** 2))
     phi = np.arctan2(y, x)
@@ -60,6 +95,7 @@ def map_to_sphere(x, y, z, yaw_radian, pitch_radian):
 
 
 def interpolate_color(coords, img, method='bilinear'):
+    # TODO: docstring
     order = {'nearest': 0, 'bilinear': 1, 'bicubic': 3}.get(method, 1)
     red = map_coordinates(img[:, :, 0], coords, order=order, mode='reflect')
     green = map_coordinates(img[:, :, 1], coords, order=order, mode='reflect')
@@ -68,6 +104,18 @@ def interpolate_color(coords, img, method='bilinear'):
 
 
 def panorama_to_plane(panorama, FOV, output_size, yaw, pitch):
+    """ Convert the panorama image to a plane image
+
+    Args:
+        panorama: The panorama image
+        FOV: The field of view of the camera
+        output_size: The size of the output image
+        yaw: The yaw of the camera
+        pitch: The pitch of the camera
+
+    Returns:
+        Image: The plane image of the panorama
+    """
     pano_height, pano_width, _ = panorama.shape
     yaw_radian = np.radians(yaw)
     pitch_radian = np.radians(pitch)
@@ -95,6 +143,11 @@ def panorama_to_plane(panorama, FOV, output_size, yaw, pitch):
     return output_image
 
 def save_image(img):
+    """ Saves an image to the images directory
+
+    Args:
+        img: The image to save
+    """
     PATH_TO_DIRECTORY = "images"  # path starting from the root of repo
     FILENAME = "img"    # base filename
 
