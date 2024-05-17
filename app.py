@@ -19,7 +19,6 @@ def get_image_objects():
             description: Image fetched successfully
     """
 
-    # TODO: Add screen width and screen height for panorama conversion (for now set by hand in utils)
     tileWidth = (int(request.args.get("tileWidth")))
     tileHeight = (int(request.args.get("tileHeight")))
     worldWidth = (int(request.args.get("worldWidth")))
