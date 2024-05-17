@@ -32,7 +32,7 @@ def get_image_objects():
     zoom = (int(request.args.get("zoom")))
 
     boundaries = (math.ceil(worldWidth / tileWidth / 2) - 1, math.ceil(worldHeight / tileHeight / 2) - 1)
-    fetch_image((0, 0), boundaries, panoid, zoom, currentHeading - originHeading, currentPitch + originPitch, cache)
+    fetch_image((0, 0), boundaries, panoid, zoom, currentHeading - originHeading, currentPitch + originPitch, cache, (2560, 1271))
     return [], 200
 
 @app.route("/imsave")
@@ -45,7 +45,6 @@ def imsave():
             description: Image fetched and saved successfully
     """
 
-    # TODO: Add screen width and screen height for panorama conversion (for now set by hand in utils)
     tileWidth = (int(request.args.get("tileWidth")))
     tileHeight = (int(request.args.get("tileHeight")))
     worldWidth = (int(request.args.get("worldWidth")))
@@ -58,7 +57,7 @@ def imsave():
     zoom = (int(request.args.get("zoom")))
 
     boundaries = (math.ceil(worldWidth / tileWidth / 2) - 1, math.ceil(worldHeight / tileHeight / 2) - 1)
-    img = fetch_image((0, 0), boundaries, panoid, zoom, currentHeading - originHeading, currentPitch + originPitch, cache)
+    img = fetch_image((0, 0), boundaries, panoid, zoom, currentHeading - originHeading, currentPitch + originPitch, cache)  # use default output size in fetch image here
     save_image(img)
 
     return [], 200
