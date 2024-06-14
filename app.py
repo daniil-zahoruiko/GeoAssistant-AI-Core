@@ -1,13 +1,17 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 from flask_caching import Cache
-from utils import fetch_image, save_image
+from helpers.ImageHelper import ImageHelper
+from helpers.Detector import Detector
 import math
+import os
 
 app = Flask(__name__)
 app.config['CACHE_TYPE'] = 'SimpleCache'
 cache = Cache(app)
 CORS(app)
+imageHelper = ImageHelper()
+detector = Detector(os.path.join(os.getcwd(), "model/best.pt"))
 
 @app.route("/objects")
 @cross_origin()
@@ -31,8 +35,10 @@ def get_image_objects():
     zoom = (int(request.args.get("zoom")))
 
     boundaries = (math.ceil(worldWidth / tileWidth / 2) - 1, math.ceil(worldHeight / tileHeight / 2) - 1)
-    fetch_image((0, 0), boundaries, panoid, zoom, currentHeading - originHeading, currentPitch + originPitch, cache, (2560, 1271))
-    return [], 200
+    img = imageHelper.fetch_image((0, 0), boundaries, panoid, zoom, currentHeading - originHeading, currentPitch + originPitch, cache, (2560, 1271))
+    boundingBoxes = detector.bounding_boxes(img)
+    # print(jsonify(boundingBoxes))
+    return jsonify(boundingBoxes), 200
 
 @app.route("/imsave")
 @cross_origin()
@@ -56,8 +62,8 @@ def imsave():
     zoom = (int(request.args.get("zoom")))
 
     boundaries = (math.ceil(worldWidth / tileWidth / 2) - 1, math.ceil(worldHeight / tileHeight / 2) - 1)
-    img = fetch_image((0, 0), boundaries, panoid, zoom, currentHeading - originHeading, currentPitch + originPitch, cache)  # use default output size in fetch image here
-    save_image(img)
+    img = imageHelper.fetch_image((0, 0), boundaries, panoid, zoom, currentHeading - originHeading, currentPitch + originPitch, cache)  # use default output size in fetch image here
+    imageHelper.save_image(img)
 
     return [], 200
 
