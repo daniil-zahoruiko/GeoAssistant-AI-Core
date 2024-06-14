@@ -16,7 +16,7 @@ detector = Detector(os.path.join(os.getcwd(), "model/best.pt"))
 @app.route("/objects")
 @cross_origin()
 def get_image_objects():
-    """ Fetches the panorama image
+    """ Fetches the bounding boxes of detected objects on a panorama image
 
     Responses:
         200:
