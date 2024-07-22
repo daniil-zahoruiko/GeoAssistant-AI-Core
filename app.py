@@ -3,8 +3,11 @@ from flask_cors import CORS, cross_origin
 from flask_caching import Cache
 from helpers.ImageHelper import ImageHelper
 from helpers.Detector import Detector
+from PIL import Image
+from w3lib.url import parse_data_uri
 import math
 import os
+import io
 
 app = Flask(__name__)
 app.config['CACHE_TYPE'] = 'SimpleCache'
@@ -13,6 +16,7 @@ CORS(app)
 imageHelper = ImageHelper()
 detector = Detector(os.path.join(os.getcwd(), "model/best.pt"))
 
+'''
 @app.route("/objects")
 @cross_origin()
 def get_image_objects():
@@ -39,6 +43,17 @@ def get_image_objects():
     boundingBoxes = detector.bounding_boxes(img)
     # print(jsonify(boundingBoxes))
     return jsonify(boundingBoxes), 200
+'''
+
+@app.route("/update", methods=["POST"])
+@cross_origin()
+def update():
+    files = request.files
+    for file in files.keys():
+        print(file)
+        files[file].save(os.path.join(os.getcwd(), f'{file}.png'))
+
+    return [], 200
 
 @app.route("/imsave")
 @cross_origin()
