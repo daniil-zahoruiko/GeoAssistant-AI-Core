@@ -4,10 +4,8 @@ from flask_caching import Cache
 from helpers.ImageHelper import ImageHelper
 from helpers.Detector import Detector
 from PIL import Image
-from w3lib.url import parse_data_uri
 import math
 import os
-from io import BytesIO
 
 app = Flask(__name__)
 app.config['CACHE_TYPE'] = 'SimpleCache'
@@ -55,7 +53,7 @@ def update():
         files[file].save(os.path.join(os.getcwd(), f'{file}.png'))
         img = Image.open(files[file])
         res.append(detector.bounding_boxes(img))
-        
+
     print(res)
     return jsonify(res), 200
 
