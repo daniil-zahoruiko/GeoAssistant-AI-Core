@@ -7,7 +7,7 @@ from PIL import Image
 from w3lib.url import parse_data_uri
 import math
 import os
-import io
+from io import BytesIO
 
 app = Flask(__name__)
 app.config['CACHE_TYPE'] = 'SimpleCache'
@@ -48,12 +48,16 @@ def get_image_objects():
 @app.route("/update", methods=["POST"])
 @cross_origin()
 def update():
+    # TODO: check for the same bounding boxes with multiple files
     files = request.files
+    res = []
     for file in files.keys():
-        print(file)
         files[file].save(os.path.join(os.getcwd(), f'{file}.png'))
-
-    return [], 200
+        img = Image.open(files[file])
+        res.append(detector.bounding_boxes(img))
+        
+    print(res)
+    return jsonify(res), 200
 
 @app.route("/imsave")
 @cross_origin()

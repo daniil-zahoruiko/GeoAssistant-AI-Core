@@ -12,6 +12,6 @@ class Detector:
         boxes = []
         for box in res[0].boxes:
             boxes.append({"cls": box.cls.tolist(), "coords": box.xyxy.tolist()[0]})
-        print(boxes)
+        # print(boxes)
         # res[0].show()
         return boxes
