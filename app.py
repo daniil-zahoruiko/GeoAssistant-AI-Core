@@ -21,9 +21,8 @@ def update():
     for file in files.keys():
         files[file].save(os.path.join(os.getcwd(), f'{file}.png'))
         img = Image.open(files[file])
-        for boundingBox in detector.bounding_boxes(img):
-            res.append(boundingBox)
-
+        res.append(detector.bounding_boxes(img))
+    
     print(res)
     return jsonify(res), 200
 
