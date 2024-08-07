@@ -6,6 +6,8 @@ class Detector:
         self.model = YOLO(file)
         self.device = "cuda:0" if torch.cuda.is_available() else "cpu"
         self.mapping = mapping
+        # Warm-up model
+        self.model.predict(None, device=self.device)
 
     def bounding_boxes(self, img):
         res = self.model.predict(img, device=self.device)
