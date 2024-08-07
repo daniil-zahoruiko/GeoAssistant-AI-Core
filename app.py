@@ -1,13 +1,18 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, current_app as app
 from flask_cors import CORS, cross_origin
 from helpers.Detector import Detector
 from helpers.ImageHelper import ImageHelper
+from helpers.JSONLoader import JSONLoader
 from PIL import Image
 import os
 
 app = Flask(__name__)
 CORS(app)
-detector = Detector(os.path.join(os.getcwd(), "model/best.pt"))
+
+MAPPING_FILE_PATH = os.path.join(app.static_folder, 'mapping.json')
+MAPPING_JSON = JSONLoader.load(MAPPING_FILE_PATH)
+
+detector = Detector(os.path.join(os.getcwd(), "model/best.pt"), MAPPING_JSON)
 image_helper = ImageHelper()
 
 @app.route("/update", methods=["POST"])
