@@ -1,7 +1,12 @@
 [
     {
         "cls": "0",
-        "name": "French Bollard",
+        "name": "French Bollard(Red)",
+        "description": "This type of bollards occur only in France"
+    },
+    {
+        "cls": "1",
+        "name": "French Bollard(Light-Blue)",
         "description": "This type of bollards occur only in France"
     }
 ]
