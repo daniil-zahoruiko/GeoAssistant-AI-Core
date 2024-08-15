@@ -6,7 +6,7 @@ images
 datasets/
 runs/
 .ipynb_checkpoints/
-yolov8n.pt
+yolov8*.pt
 
 #aws
 aws_keys.txt
