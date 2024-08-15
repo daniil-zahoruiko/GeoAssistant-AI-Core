@@ -10,7 +10,7 @@ class Detector:
         self.model.predict(None, device=self.device)
 
     def bounding_boxes(self, img):
-        res = self.model.predict(img, device=self.device, conf=0.7)
+        res = self.model.predict(img, device=self.device, conf=0.8, imgsz=(1088, 1920))
         boxes = []
         for box in res[0].boxes:
             map = [item for item in self.mapping if item["cls"] == str(int(box.cls.tolist()[0]))]
