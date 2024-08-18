@@ -5,7 +5,7 @@ class ImageHelper:
     def save_image(self, img_file):
         PATH_TO_DIRECTORY = "images"  # path starting from the root of repo
         FILENAME = "img"    # base filename
-        SIZE = (1024, 512)
+        SIZE = (1920, 960)
 
         path = os.path.join(os.getcwd(), PATH_TO_DIRECTORY)
         if not os.path.exists(path):

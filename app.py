@@ -10,9 +10,12 @@ app = Flask(__name__)
 CORS(app)
 
 MAPPING_FILE_PATH = os.path.join(app.static_folder, 'mapping.json')
-MAPPING_JSON = JSONLoader.load(MAPPING_FILE_PATH)
+MODEL_CONFIG_PATH = os.path.join(app.static_folder, 'model_cfg.json')
 
-detector = Detector(os.path.join(os.getcwd(), "model/best.pt"), MAPPING_JSON)
+MAPPING_JSON = JSONLoader.load(MAPPING_FILE_PATH)
+MODEL_CONFIG = JSONLoader.load(MODEL_CONFIG_PATH)
+
+detector = Detector(os.path.join(os.getcwd(), "model/best.pt"), MAPPING_JSON, MODEL_CONFIG)
 image_helper = ImageHelper()
 
 @app.route("/update", methods=["POST"])
