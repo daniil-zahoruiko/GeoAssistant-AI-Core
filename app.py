@@ -12,7 +12,7 @@ CORS(app)
 MAPPING_FILE_PATH = os.path.join(app.static_folder, 'mapping.json')
 MAPPING_JSON = JSONLoader.load(MAPPING_FILE_PATH)
 
-detector = Detector(os.path.join(os.getcwd(), "model/best_new.pt"), MAPPING_JSON)
+detector = Detector(os.path.join(os.getcwd(), "model/best.pt"), MAPPING_JSON)
 image_helper = ImageHelper()
 
 @app.route("/update", methods=["POST"])
