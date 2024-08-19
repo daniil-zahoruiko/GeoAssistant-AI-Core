@@ -8,5 +8,10 @@
         "cls": "1",
         "name": "French Bollard(Light-Blue)",
         "description": "This type of bollards occur only in France"
+    },
+    {
+        "cls": "2",
+        "name": "other",
+        "description": "No description"
     }
 ]

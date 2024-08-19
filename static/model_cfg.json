@@ -2,6 +2,6 @@
     {
         "key": "bollard",
         "path": "model/bollard_classification.pt",
-        "size": [320, 320]
+        "size": [320, 512]
     }
 ]
