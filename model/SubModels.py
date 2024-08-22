@@ -74,3 +74,10 @@ class ResNet(nn.Module):
 class BollardNet(ResNet):
     def __init__(self):
         super().__init__(ResidualBlock, [3, 4, 6, 3], 4)
+
+CLASSIFICATION_MODELS = {
+    "bollard": BollardNet
+}
+
+def get_classification_model(key):
+    return CLASSIFICATION_MODELS[key]

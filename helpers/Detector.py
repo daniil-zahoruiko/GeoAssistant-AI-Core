@@ -1,7 +1,7 @@
 import torch
 from torchvision import transforms
 from ultralytics import YOLO
-from model.SubModels import BollardNet
+from model.SubModels import get_classification_model
 
 class SubModel:
     def __init__(self, model_class, imgsz, state_dict, metadata):
@@ -31,15 +31,13 @@ class SubModel:
 class Detector:
 
     def __init__(self, file, detection_mapping, classification_mapping, submodels_config):
-        CLASSIFICATION_MODEL_CLASSES = { "bollard": BollardNet }
-
         self.model = YOLO(file)
         self.device = "cuda:0" if torch.cuda.is_available() else "cpu"
         self.mapping = detection_mapping
 
         self.classification_models = {}
         for model in submodels_config:
-            self.classification_models[model['key']] = SubModel(CLASSIFICATION_MODEL_CLASSES[model['key']], 
+            self.classification_models[model['key']] = SubModel(get_classification_model(model['key']), 
                                                                 tuple(model['size']), 
                                                                 torch.load(model['path']), 
                                                                 classification_mapping[model['key']])
