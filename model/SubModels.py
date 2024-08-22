@@ -73,4 +73,4 @@ class ResNet(nn.Module):
     
 class BollardNet(ResNet):
     def __init__(self):
-        super().__init__(ResidualBlock, [3, 4, 6, 3], 3)
+        super().__init__(ResidualBlock, [3, 4, 6, 3], 4)

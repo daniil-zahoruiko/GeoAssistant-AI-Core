@@ -11,6 +11,11 @@
     },
     {
         "cls": "2",
+        "name": "Italian Bollard",
+        "description": "This type of bollards occur only in Italy"
+    },
+    {
+        "cls": "3",
         "name": "other",
         "description": "No description"
     }
