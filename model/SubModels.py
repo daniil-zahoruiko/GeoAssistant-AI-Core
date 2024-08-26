@@ -25,7 +25,7 @@ class ResidualBlock(nn.Module):
         return out
     
 class ResNet(nn.Module):
-    def __init__(self, block, layers, num_classes = 10):
+    def __init__(self, block, layers, final_layer_units, num_classes = 10):
         super(ResNet, self).__init__()
         self.inplanes = 64
         self.conv1 = nn.Sequential(
@@ -39,7 +39,7 @@ class ResNet(nn.Module):
         self.layer3 = self._make_layer(block, 512, layers[3], stride = 2)
         self.avgpool = nn.AvgPool2d(7, stride=1)
         self.dropout = nn.Dropout(0.5)
-        self.fc = nn.Linear(20480, num_classes)
+        self.fc = nn.Linear(final_layer_units, num_classes)
         
     def _make_layer(self, block, planes, blocks, stride=1):
         downsample = None
@@ -74,10 +74,15 @@ class ResNet(nn.Module):
     
 class BollardNet(ResNet):
     def __init__(self):
-        super().__init__(ResidualBlock, [3, 4, 6, 3], 4)
+        super().__init__(ResidualBlock, [3, 4, 6, 3], 20480, 4)
+
+class RoofRackNet(ResNet):
+    def __init__(self):
+        super().__init__(ResidualBlock, [2, 2, 2, 2], 512, 1)
 
 CLASSIFICATION_MODELS = {
-    "bollard": BollardNet
+    "bollard": BollardNet,
+    "gc-roof-rack": RoofRackNet
 }
 
 def get_classification_model(key):

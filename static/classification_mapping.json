@@ -3,23 +3,31 @@
     {
         "0": 
         {
-            "name": "French Bollard(Red)",
-            "description": "This type of bollards occurs only in France"
+            "name": "French Bollard (Red)",
+            "description": "This white bollard with a red stripe occurs only in France"
         },
         "1":
         {
-            "name": "French Bollard(Light-Blue)",
-            "description": "This type of bollards occurs only in France"
+            "name": "French Bollard (Grey)",
+            "description": "This white bollard with a grey stripe occurs only in France"
         },
         "2":
         {
             "name": "Italian Bollard",
-            "description": "This type of bollards occurs only in Italy"
+            "description": "This white triangular black-topped bollard with red front and white rear reflectors occurs only in Italy"
         },
         "3":
         {
             "name": "other",
             "description": "No description"
+        }
+    },
+    "gc-roof-rack":
+    {
+        "0":
+        {
+            "name": "Roof Rack Bar",
+            "description": "Google car has roof rack bars in the following countries: Guatemala, Dominican Republic, Curacao, Kyrgyzstan, Mongolia, Ghana, occasionally in Senegal"
         }
     }
 }

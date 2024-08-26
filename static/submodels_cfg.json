@@ -3,5 +3,10 @@
         "key": "bollard",
         "path": "model/bollard_classification.pt",
         "size": [320, 512]
+    },
+    {
+        "key": "gc-roof-rack",
+        "path": "model/gc-roof-rack_classification.pt",
+        "size": [200, 200]
     }
 ]
