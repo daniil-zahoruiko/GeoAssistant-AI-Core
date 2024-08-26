@@ -23,7 +23,6 @@ class SubModel:
         metadata = self.metadata[str(res)]
         
         return { 
-            'cls': res,
             'name': metadata['name'],
             'description': metadata['description']
         }
@@ -50,7 +49,7 @@ class Detector:
         boxes = []
         for box in res[0].boxes:
             res = self.classification_models[self.mapping[str(int(box.cls.tolist()[0]))]].predict(img, box.xyxy.tolist()[0])
-            boxes.append({  "cls": res['cls'],
+            boxes.append({  "cls": box.cls.tolist()[0],
                             "name": res['name'],
                             "description":res['description'],
                             "coords": box.xyxy.tolist()[0]
