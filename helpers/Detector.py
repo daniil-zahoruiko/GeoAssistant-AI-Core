@@ -48,8 +48,9 @@ class Detector:
         res = self.model.predict(img, device=self.device, conf=0.7, imgsz=(1088, 1920))
         boxes = []
         for box in res[0].boxes:
-            res = self.classification_models[self.mapping[str(int(box.cls.tolist()[0]))]].predict(img, box.xyxy.tolist()[0])
-            boxes.append({  "cls": box.cls.tolist()[0],
+            cls = str(int(box.cls.tolist()[0]))
+            res = self.classification_models[self.mapping[cls]].predict(img, box.xyxy.tolist()[0])
+            boxes.append({  "cls": cls,
                             "name": res['name'],
                             "description":res['description'],
                             "coords": box.xyxy.tolist()[0]
