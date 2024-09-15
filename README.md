@@ -4,7 +4,7 @@
 <p>
   <img src="https://img.shields.io/badge/release-v1.0.0-blue?style=flat-square"/>
   <img src="https://img.shields.io/badge/release_date-september_2024-979621?style=flat-square"/>
-  <img src="https://img.shields.io/badge/license-MIT-red?style=flat-square"/>
+  <img src="https://img.shields.io/badge/license-CC_BY_NC_SA_4.0-red?style=flat-square"/>
   <img src="https://img.shields.io/badge/Jupyter-Notebook-red?logo=jupyter&style=flat-square"/>
   <img src="https://img.shields.io/badge/Server-Flask-yellow?logo=flask&style=flat-square"/>
   <img src="https://img.shields.io/badge/Made_with-YOLO-blue?style=flat-square"/>
