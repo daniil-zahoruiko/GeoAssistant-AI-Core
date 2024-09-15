@@ -28,7 +28,7 @@
 
 <h1 align="center">Technologies used</h1>
 
-- **Yolo**
+- **YOLOv8**
 - **Python**
 
 <h1 align="center">Contributions</h1>
