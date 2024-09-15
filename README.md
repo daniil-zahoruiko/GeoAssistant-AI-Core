@@ -7,11 +7,11 @@
   <img src="https://img.shields.io/badge/license-CC_BY_NC_SA_4.0-red?style=flat-square"/>
   <img src="https://img.shields.io/badge/Jupyter-Notebook-red?logo=jupyter&style=flat-square"/>
   <img src="https://img.shields.io/badge/Server-Flask-yellow?logo=flask&style=flat-square"/>
-  <img src="https://img.shields.io/badge/Made_with-YOLO-blue?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Made_with-YOLOv8-blue?style=flat-square"/>
 </p>
 
 <p>
-   Back-end server of <a href="https://github.com/daniil-zahoruiko/GeoAssistant-AI-Extension">GeoAssistant AI Extension</a> with core computations and Machine Learning models
+   Back-end server of <a href="https://github.com/daniil-zahoruiko/GeoAssistant-AI-Extension">GeoAssistant AI Extension</a> with core computations and Machine Learning models.
 </p>
 
 <h1 align="center">Documentation</h1>
@@ -32,11 +32,10 @@ Our repository provides trained models; however, the dataset is not publicly ava
 
 <h1 align="center">Technologies used</h1>
 
-- **PyTorch**
-- **YOLOv8**
+- **<a href="https://pytorch.org/docs/stable/index.html">PyTorch</a>**
+- **<a href="https://github.com/ultralytics/ultralytics">YOLOv8</a>**
 - **ResNet**
 - **Python**
-- **AWS**
 
 <h1 align="center">Contributions</h1>
 App was created by Daniil Zahoruiko, University of Alberta student, and Dmytro Avdieienko, University of Southampton student, where each contributed in all sections of development.
