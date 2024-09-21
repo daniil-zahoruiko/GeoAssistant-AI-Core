@@ -1,6 +1,7 @@
 __pycache__/
 *.py[cod]
 images
+venv
 
 # AI stuff
 datasets/
