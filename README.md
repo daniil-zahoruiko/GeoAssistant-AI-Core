@@ -38,4 +38,4 @@ Our repository provides trained models; however, the dataset is not publicly ava
 - **Python**
 
 <h1 align="center">Contributions</h1>
-App was created by Daniil Zahoruiko, University of Alberta student, and Dmytro Avdieienko, University of Southampton student, where each contributed in all sections of development.
+App was created by Daniil Zahoruiko and Dmytro Avdieienko.
